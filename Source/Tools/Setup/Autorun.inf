@@ -1,0 +1,5 @@
+[autorun]
+icon=System\GPA.ico
+open=setup.exe
+label=GPA ProjectAlpha Setup
+action=Install the ProjectAlpha
