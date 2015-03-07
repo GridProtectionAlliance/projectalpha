@@ -33,7 +33,6 @@
     <PropertyGroup>
       <!-- Must-override setting(s). -->
       <ProjectName>ProjectAlpha</ProjectName>
-      <ServerFolder>$/openPG/Main</ServerFolder>
       <!-- Use Visual Studio 11.0 tools -->
       <TfsClient Condition="'$(TfsClient)' == ''">$(VS110COMNTOOLS)\..\IDE\tf.exe</TfsClient>
       <VisualStudio Condition="'$(VisualStudio)' == ''">$(VS110COMNTOOLS)\..\IDE\devenv.com</VisualStudio>
