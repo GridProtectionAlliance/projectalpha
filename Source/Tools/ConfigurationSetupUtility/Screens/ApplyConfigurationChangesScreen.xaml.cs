@@ -24,7 +24,6 @@
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 using Microsoft.Win32;
 
 namespace ConfigurationSetupUtility.Screens
@@ -32,7 +31,7 @@ namespace ConfigurationSetupUtility.Screens
     /// <summary>
     /// Interaction logic for ApplyConfigurationChangesScreen.xaml
     /// </summary>
-    public partial class ApplyConfigurationChangesScreen : UserControl, IScreen
+    public partial class ApplyConfigurationChangesScreen : IScreen
     {
         #region [ Members ]
 
@@ -196,15 +195,12 @@ namespace ConfigurationSetupUtility.Screens
             if (!webManagerOptionEnabled)
                 m_ProjectAlphaManagerWebCheckBox.IsChecked = false;
 
-            if (initialDataScript)
-                m_setupHistorianCheckBox.IsChecked = true;
-            else
-                m_setupHistorianCheckBox.IsChecked = false;
+            m_setupHistorianCheckBox.IsChecked = false;
 
             // Set up the state object with the proper initial values.
-            m_state["applyChangesToService"] = m_ProjectAlphaServiceCheckBox.IsChecked.Value;
-            m_state["applyChangesToLocalManager"] = m_ProjectAlphaManagerLocalCheckBox.IsChecked.Value;
-            m_state["applyChangesToWebManager"] = m_ProjectAlphaManagerWebCheckBox.IsChecked.Value;
+            m_state["applyChangesToService"] = m_ProjectAlphaServiceCheckBox.IsChecked.GetValueOrDefault();
+            m_state["applyChangesToLocalManager"] = m_ProjectAlphaManagerLocalCheckBox.IsChecked.GetValueOrDefault();
+            m_state["applyChangesToWebManager"] = m_ProjectAlphaManagerWebCheckBox.IsChecked.GetValueOrDefault();
             //m_state["setupHistorian"] = initialDataScript;
             //m_setupHistorianCheckBox.Visibility = (Convert.ToBoolean(m_state["setupHistorian"]) ? Visibility.Visible : Visibility.Collapsed);
 
