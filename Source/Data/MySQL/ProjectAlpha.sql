@@ -38,7 +38,7 @@ USE ProjectAlpha;
 -- IMPORTANT NOTE: When making updates to this schema, please increment the version number!
 -- *******************************************************************************************
 CREATE VIEW SchemaVersion AS
-SELECT 4 AS VersionNumber;
+SELECT 5 AS VersionNumber;
 
 CREATE TABLE ErrorLog(
     ID INT AUTO_INCREMENT NOT NULL,
@@ -542,6 +542,21 @@ CREATE TABLE OutputStream(
     CONSTRAINT IX_OutputStream_NodeID_Acronym UNIQUE KEY (NodeID ASC, Acronym ASC)
 );
 
+CREATE TABLE PowerCalculation(
+    NodeID NCHAR(36) NULL,
+    ID INT AUTO_INCREMENT NOT NULL,
+    CircuitDescription TEXT NULL,
+    VoltageAngleSignalID NCHAR(36) NOT NULL,
+    VoltageMagSignalID NCHAR(36) NOT NULL,
+    CurrentAngleSignalID NCHAR(36) NOT NULL,
+    CurrentMagSignalID NCHAR(36) NOT NULL,
+    ActivePowerOutputSignalID NCHAR(36) NULL,
+    ReactivePowerOutputSignalID NCHAR(36) NULL,
+    ApparentPowerOutputSignalID NCHAR(36) NULL,
+    Enabled TINYINT NOT NULL,
+    CONSTRAINT PK_PowerCalculation PRIMARY KEY (ID ASC)
+);
+
 CREATE TABLE Alarm(
     NodeID NCHAR(36) NOT NULL,
     ID INT AUTO_INCREMENT NOT NULL,
@@ -730,7 +745,7 @@ CREATE TABLE MeasurementGroupMeasurement (
     CONSTRAINT PK_MeasurementGroupMeasurement PRIMARY KEY (NodeID ASC, MeasurementGroupID ASC, SignalID ASC)
 );
 
-ALTER TABLE Subscriber ADD CONSTRAINT FK_Subscriber_Node FOREIGN KEY(NodeID) REFERENCES node (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Subscriber ADD CONSTRAINT FK_Subscriber_Node FOREIGN KEY(NodeID) REFERENCES Node (ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE SubscriberMeasurement ADD CONSTRAINT FK_SubscriberMeasurement_Node FOREIGN KEY(NodeID) REFERENCES Node (ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -744,7 +759,7 @@ ALTER TABLE SubscriberMeasurementGroup ADD CONSTRAINT FK_SubscriberMeasurementGr
 
 ALTER TABLE SubscriberMeasurementGroup ADD CONSTRAINT FK_SubscriberMeasurementGroup_MeasurementGroup FOREIGN KEY(MeasurementGroupID) REFERENCES MeasurementGroup (ID);
 
-ALTER TABLE MeasurementGroup ADD CONSTRAINT FK_MeasurementGroup_Node FOREIGN KEY(NodeID) REFERENCES node (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE MeasurementGroup ADD CONSTRAINT FK_MeasurementGroup_Node FOREIGN KEY(NodeID) REFERENCES Node (ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE MeasurementGroupMeasurement ADD CONSTRAINT FK_MeasurementGroupMeasurement_Node FOREIGN KEY(NodeID) REFERENCES Node (ID);
 
@@ -756,7 +771,7 @@ ALTER TABLE MeasurementGroupMeasurement ADD CONSTRAINT FK_MeasurementGroupMeasur
 
 ALTER TABLE Node ADD CONSTRAINT FK_Node_Company FOREIGN KEY(CompanyID) REFERENCES Company (ID);
 
-ALTER TABLE DataOperation ADD CONSTRAINT FK_DataOperation_Node FOREIGN KEY(NodeID) REFERENCES node (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE DataOperation ADD CONSTRAINT FK_DataOperation_Node FOREIGN KEY(NodeID) REFERENCES Node (ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE OtherDevice ADD CONSTRAINT FK_OtherDevice_Company FOREIGN KEY(CompanyID) REFERENCES Company (ID);
 
@@ -794,7 +809,7 @@ ALTER TABLE Measurement ADD CONSTRAINT FK_Measurement_Device FOREIGN KEY(DeviceI
 
 ALTER TABLE Measurement ADD CONSTRAINT FK_Measurement_SignalType FOREIGN KEY(SignalTypeID) REFERENCES SignalType (ID);
 
-ALTER TABLE ImportedMeasurement ADD CONSTRAINT FK_ImportedMeasurement_Node FOREIGN KEY(NodeID) REFERENCES node (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE ImportedMeasurement ADD CONSTRAINT FK_ImportedMeasurement_Node FOREIGN KEY(NodeID) REFERENCES Node (ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE OutputStreamMeasurement ADD CONSTRAINT FK_OutputStreamMeasurement_Historian FOREIGN KEY(HistorianID) REFERENCES Historian (ID);
 
@@ -812,17 +827,31 @@ ALTER TABLE Phasor ADD CONSTRAINT FK_Phasor_Device FOREIGN KEY(DeviceID) REFEREN
 
 ALTER TABLE Phasor ADD CONSTRAINT FK_Phasor_Phasor FOREIGN KEY(DestinationPhasorID) REFERENCES Phasor (ID);
 
-ALTER TABLE CalculatedMeasurement ADD CONSTRAINT FK_CalculatedMeasurement_Node FOREIGN KEY(NodeID) REFERENCES node (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE CalculatedMeasurement ADD CONSTRAINT FK_CalculatedMeasurement_Node FOREIGN KEY(NodeID) REFERENCES Node (ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE CustomActionAdapter ADD CONSTRAINT FK_CustomActionAdapter_Node FOREIGN KEY(NodeID) REFERENCES node (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE CustomActionAdapter ADD CONSTRAINT FK_CustomActionAdapter_Node FOREIGN KEY(NodeID) REFERENCES Node (ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE Historian ADD CONSTRAINT FK_Historian_Node FOREIGN KEY(NodeID) REFERENCES node (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Historian ADD CONSTRAINT FK_Historian_Node FOREIGN KEY(NodeID) REFERENCES Node (ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE CustomInputAdapter ADD CONSTRAINT FK_CustomInputAdapter_Node FOREIGN KEY(NodeID) REFERENCES node (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE CustomInputAdapter ADD CONSTRAINT FK_CustomInputAdapter_Node FOREIGN KEY(NodeID) REFERENCES Node (ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE OutputStream ADD CONSTRAINT FK_OutputStream_Node FOREIGN KEY(NodeID) REFERENCES node (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE OutputStream ADD CONSTRAINT FK_OutputStream_Node FOREIGN KEY(NodeID) REFERENCES Node (ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE Alarm ADD CONSTRAINT FK_Alarm_Node FOREIGN KEY(NodeID) REFERENCES node (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE PowerCalculation ADD CONSTRAINT FK_PowerCalculation_Measurement1 FOREIGN KEY(ApparentPowerOutputSignalID) REFERENCES Measurement (SignalID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE PowerCalculation ADD CONSTRAINT FK_PowerCalculation_Measurement2 FOREIGN KEY(CurrentAngleSignalID) REFERENCES Measurement (SignalID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE PowerCalculation ADD CONSTRAINT FK_PowerCalculation_Measurement3 FOREIGN KEY(CurrentMagSignalID) REFERENCES Measurement (SignalID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE PowerCalculation ADD CONSTRAINT FK_PowerCalculation_Measurement4 FOREIGN KEY(ReactivePowerOutputSignalID) REFERENCES Measurement (SignalID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE PowerCalculation ADD CONSTRAINT FK_PowerCalculation_Measurement5 FOREIGN KEY(ActivePowerOutputSignalID) REFERENCES Measurement (SignalID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE PowerCalculation ADD CONSTRAINT FK_PowerCalculation_Measurement6 FOREIGN KEY(VoltageAngleSignalID) REFERENCES Measurement (SignalID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE PowerCalculation ADD CONSTRAINT FK_PowerCalculation_Measurement7 FOREIGN KEY(VoltageMagSignalID) REFERENCES Measurement (SignalID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE Alarm ADD CONSTRAINT FK_Alarm_Node FOREIGN KEY(NodeID) REFERENCES Node (ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE Alarm ADD CONSTRAINT FK_Alarm_Measurement_SignalID FOREIGN KEY(SignalID) REFERENCES Measurement (SignalID) ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -834,23 +863,23 @@ ALTER TABLE AlarmLog ADD CONSTRAINT FK_AlarmLog_Alarm_PreviousState FOREIGN KEY(
 
 ALTER TABLE AlarmLog ADD CONSTRAINT FK_AlarmLog_Alarm_NewState FOREIGN KEY(NewState) REFERENCES Alarm (ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE CustomOutputAdapter ADD CONSTRAINT FK_CustomOutputAdapter_Node FOREIGN KEY(NodeID) REFERENCES node (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE CustomOutputAdapter ADD CONSTRAINT FK_CustomOutputAdapter_Node FOREIGN KEY(NodeID) REFERENCES Node (ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE ApplicationRoleSecurityGroup ADD CONSTRAINT FK_applicationrolesecuritygroup_applicationrole FOREIGN KEY (ApplicationRoleID) REFERENCES applicationrole (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE ApplicationRoleSecurityGroup ADD CONSTRAINT FK_ApplicationRoleSecurityGroup_ApplicationRole FOREIGN KEY (ApplicationRoleID) REFERENCES ApplicationRole (ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE ApplicationRoleSecurityGroup ADD CONSTRAINT FK_applicationrolesecuritygroup_securitygroup FOREIGN KEY (SecurityGroupID) REFERENCES securitygroup (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE ApplicationRoleSecurityGroup ADD CONSTRAINT FK_ApplicationRoleSecurityGroup_SecurityGroup FOREIGN KEY (SecurityGroupID) REFERENCES SecurityGroup (ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE UserAccount ADD CONSTRAINT FK_useraccount FOREIGN KEY (DefaultNodeID) REFERENCES node (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE UserAccount ADD CONSTRAINT FK_UserAccount FOREIGN KEY (DefaultNodeID) REFERENCES Node (ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE ApplicationRole ADD CONSTRAINT FK_applicationrole FOREIGN KEY (NodeID) REFERENCES node (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE ApplicationRole ADD CONSTRAINT FK_ApplicationRole FOREIGN KEY (NodeID) REFERENCES Node (ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE ApplicationRoleUserAccount ADD CONSTRAINT FK_applicationroleuseraccount_useraccount FOREIGN KEY (UserAccountID) REFERENCES useraccount (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE ApplicationRoleUserAccount ADD CONSTRAINT FK_ApplicationRoleUserAccount_UserAccount FOREIGN KEY (UserAccountID) REFERENCES UserAccount (ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE ApplicationRoleUserAccount ADD CONSTRAINT FK_applicationroleuseraccount_applicationrole FOREIGN KEY (ApplicationRoleID) REFERENCES applicationrole (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE ApplicationRoleUserAccount ADD CONSTRAINT FK_ApplicationRoleUserAccount_ApplicationRole FOREIGN KEY (ApplicationRoleID) REFERENCES ApplicationRole (ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE SecurityGroupUserAccount ADD CONSTRAINT FK_securitygroupuseraccount_useraccount FOREIGN KEY (UserAccountID) REFERENCES useraccount (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE SecurityGroupUserAccount ADD CONSTRAINT FK_SecurityGroupUserAccount_UserAccount FOREIGN KEY (UserAccountID) REFERENCES UserAccount (ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE SecurityGroupUserAccount ADD CONSTRAINT FK_securitygroupuseraccount_securitygroup FOREIGN KEY (SecurityGroupID) REFERENCES securitygroup (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE SecurityGroupUserAccount ADD CONSTRAINT FK_SecurityGroupUserAccount_SecurityGroup FOREIGN KEY (SecurityGroupID) REFERENCES SecurityGroup (ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
 CREATE VIEW NodeInfo
 AS
@@ -1256,7 +1285,7 @@ SELECT OSD.NodeID, OSD.AdapterID, OSD.ID, OSD.Acronym, COALESCE(OSD.BpaAcronym, 
             CASE 
                 WHEN EXISTS (Select Acronym From Device Where Acronym = OSD.Acronym) THEN FALSE 
                 ELSE TRUE 
-            END AS Virtual
+            END AS `Virtual`
 FROM OutputStreamDevice OSD;
                       
 CREATE VIEW PhasorDetail AS

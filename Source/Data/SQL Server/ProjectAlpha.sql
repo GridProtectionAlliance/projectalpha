@@ -116,7 +116,7 @@ GO
 -- IMPORTANT NOTE: When making updates to this schema, please increment the version number!
 -- *******************************************************************************************
 CREATE VIEW [dbo].[SchemaVersion] AS
-SELECT 4 AS VersionNumber
+SELECT 5 AS VersionNumber
 GO
 
 SET ANSI_NULLS ON
@@ -1101,6 +1101,67 @@ END
 
 
 GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+CREATE TABLE [dbo].[PowerCalculation](
+    [NodeID] [uniqueidentifier] NULL,
+    [ID] [int] IDENTITY(1,1) NOT NULL,
+    [CircuitDescription] [varchar](max) NULL,
+    [VoltageAngleSignalID] [uniqueidentifier] NOT NULL,
+    [VoltageMagSignalID] [uniqueidentifier] NOT NULL,
+    [CurrentAngleSignalID] [uniqueidentifier] NOT NULL,
+    [CurrentMagSignalID] [uniqueidentifier] NOT NULL,
+    [ActivePowerOutputSignalID] [uniqueidentifier] NULL,
+    [ReactivePowerOutputSignalID] [uniqueidentifier] NULL,
+    [ApparentPowerOutputSignalID] [uniqueidentifier] NULL,
+    [Enabled] [bit] NOT NULL,
+ CONSTRAINT [PK_PowerCalculation] PRIMARY KEY CLUSTERED 
+(
+    [ID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE [dbo].[PowerCalculation]  WITH CHECK ADD  CONSTRAINT [FK_PowerCalculation_Measurement1] FOREIGN KEY([ApparentPowerOutputSignalID])
+REFERENCES [dbo].[Measurement] ([SignalID])
+GO
+
+ALTER TABLE [dbo].[PowerCalculation]  WITH CHECK ADD  CONSTRAINT [FK_PowerCalculation_Measurement2] FOREIGN KEY([CurrentAngleSignalID])
+REFERENCES [dbo].[Measurement] ([SignalID])
+GO
+
+ALTER TABLE [dbo].[PowerCalculation]  WITH CHECK ADD  CONSTRAINT [FK_PowerCalculation_Measurement3] FOREIGN KEY([CurrentMagSignalID])
+REFERENCES [dbo].[Measurement] ([SignalID])
+GO
+
+ALTER TABLE [dbo].[PowerCalculation]  WITH CHECK ADD  CONSTRAINT [FK_PowerCalculation_Measurement4] FOREIGN KEY([ReactivePowerOutputSignalID])
+REFERENCES [dbo].[Measurement] ([SignalID])
+GO
+
+ALTER TABLE [dbo].[PowerCalculation]  WITH CHECK ADD  CONSTRAINT [FK_PowerCalculation_Measurement5] FOREIGN KEY([ActivePowerOutputSignalID])
+REFERENCES [dbo].[Measurement] ([SignalID])
+GO
+
+ALTER TABLE [dbo].[PowerCalculation]  WITH CHECK ADD  CONSTRAINT [FK_PowerCalculation_Measurement6] FOREIGN KEY([VoltageAngleSignalID])
+REFERENCES [dbo].[Measurement] ([SignalID])
+GO
+
+ALTER TABLE [dbo].[PowerCalculation]  WITH CHECK ADD  CONSTRAINT [FK_PowerCalculation_Measurement7] FOREIGN KEY([VoltageMagSignalID])
+REFERENCES [dbo].[Measurement] ([SignalID])
+GO
+
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1608,8 +1669,6 @@ GO
 
 ALTER TABLE [dbo].[MeasurementGroupMeasurement]  WITH CHECK ADD  CONSTRAINT [FK_MeasurementGroupMeasurement_Measurement] FOREIGN KEY([SignalID])
 REFERENCES [dbo].[Measurement] ([SignalID])
-ON UPDATE CASCADE
-ON DELETE CASCADE
 GO
 
 ALTER TABLE [dbo].[MeasurementGroupMeasurement] CHECK CONSTRAINT [FK_MeasurementGroupMeasurement_Measurement]
@@ -1664,8 +1723,6 @@ GO
 
 ALTER TABLE [dbo].[SubscriberMeasurement]  WITH CHECK ADD  CONSTRAINT [FK_SubscriberMeasurement_Measurement] FOREIGN KEY([SignalID])
 REFERENCES [dbo].[Measurement] ([SignalID])
-ON UPDATE CASCADE
-ON DELETE CASCADE
 GO
 
 ALTER TABLE [dbo].[SubscriberMeasurement] CHECK CONSTRAINT [FK_SubscriberMeasurement_Measurement]
@@ -2180,8 +2237,8 @@ FROM
             Log1.Timestamp,
             Log1.Value
         FROM
-			AlarmLog AS Log1 LEFT OUTER JOIN
-			AlarmLog AS Log2 ON Log1.SignalID = Log2.SignalID AND Log1.Ticks < Log2.Ticks
+            AlarmLog AS Log1 LEFT OUTER JOIN
+            AlarmLog AS Log2 ON Log1.SignalID = Log2.SignalID AND Log1.Ticks < Log2.Ticks
         WHERE
             Log2.ID IS NULL
     ) AS CurrentState
@@ -2440,7 +2497,6 @@ REFERENCES [dbo].[Historian] ([ID])
 GO
 ALTER TABLE [dbo].[OutputStreamMeasurement]  WITH CHECK ADD  CONSTRAINT [FK_OutputStreamMeasurement_Measurement] FOREIGN KEY([PointID])
 REFERENCES [dbo].[Measurement] ([PointID])
-ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[OutputStreamMeasurement]  WITH CHECK ADD  CONSTRAINT [FK_OutputStreamMeasurement_Node] FOREIGN KEY([NodeID])
 REFERENCES [dbo].[Node] ([ID])
@@ -2525,6 +2581,29 @@ BEGIN
 END
 GO
 
+CREATE TRIGGER [dbo].[Measurement_ClearReferences]
+    ON [dbo].[Measurement]
+    INSTEAD OF DELETE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    DELETE FROM [dbo].[PowerCalculation] WHERE 
+		   [ApparentPowerOutputSignalID] IN (SELECT [SignalID] FROM DELETED)
+		OR [CurrentAngleSignalID] IN (SELECT [SignalID] FROM DELETED)
+		OR [CurrentMagSignalID] IN (SELECT [SignalID] FROM DELETED)
+		OR [ReactivePowerOutputSignalID] IN (SELECT [SignalID] FROM DELETED)
+		OR [ActivePowerOutputSignalID] IN (SELECT [SignalID] FROM DELETED)
+		OR [VoltageAngleSignalID] IN (SELECT [SignalID] FROM DELETED)
+		OR [VoltageMagSignalID] IN (SELECT [SignalID] FROM DELETED)
+    DELETE FROM [dbo].[MeasurementGroupMeasurement] WHERE [SignalID] IN (SELECT [SignalID] FROM DELETED)
+    DELETE FROM [dbo].[SubscriberMeasurement] WHERE [SignalID] IN (SELECT [SignalID] FROM DELETED)
+    DELETE FROM [dbo].[OutputStreamMeasurement] WHERE [PointID] IN (SELECT [PointID] FROM DELETED)
+    DELETE FROM [dbo].[AlarmLog] WHERE [SignalID] IN (SELECT [SignalID] FROM DELETED)
+    DELETE FROM [dbo].[Alarm] WHERE [SignalID] IN (SELECT [SignalID] FROM DELETED) OR [AssociatedMeasurementID] IN (SELECT [SignalID] FROM DELETED)
+    DELETE FROM [dbo].[Measurement] WHERE [SignalID] IN (SELECT [SignalID] FROM DELETED)
+END
+GO
+
 CREATE TRIGGER [dbo].[Device_ClearReferences]
     ON [dbo].[Device]
     INSTEAD OF DELETE
@@ -2532,17 +2611,6 @@ AS
 BEGIN
     DELETE FROM Measurement WHERE DeviceID IN (SELECT ID FROM deleted)
     DELETE FROM Device WHERE ID IN (SELECT ID FROM deleted)
-END
-GO
-
-CREATE TRIGGER [dbo].[Measurement_ClearReferences]
-    ON [dbo].[Measurement]
-    INSTEAD OF DELETE
-AS
-BEGIN
-    DELETE FROM AlarmLog WHERE SignalID IN (SELECT SignalID FROM deleted)
-    DELETE FROM Alarm WHERE SignalID IN (SELECT SignalID FROM deleted) OR AssociatedMeasurementID IN (SELECT SignalID FROM deleted)
-    DELETE FROM Measurement WHERE SignalID IN (SELECT SignalID FROM deleted)
 END
 GO
 
