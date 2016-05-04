@@ -268,13 +268,13 @@ namespace ConfigurationSetupUtility.Screens
                     m_postgresSetup.RolePassword = m_rolePasswordTextBox.SecurePassword;
                 }
 
-                m_databaseTextBox.Text = migrate ? "openPDC" + App.DatabaseVersionSuffix : "openPDC";
+                m_databaseTextBox.Text = migrate ? "ProjectAlpha" + App.DatabaseVersionSuffix : "ProjectAlpha";
 
                 // When using an existing database as-is, read existing connection settings out of the configuration file
-                string configFile = FilePath.GetAbsolutePath("openPDC.exe.config");
+                string configFile = FilePath.GetAbsolutePath("ProjectAlpha.exe.config");
 
                 if (!File.Exists(configFile))
-                    configFile = FilePath.GetAbsolutePath("openPDCManager.exe.config");
+                    configFile = FilePath.GetAbsolutePath("ProjectAlphaManager.exe.config");
 
                 if (existing && !migrate && File.Exists(configFile))
                 {
