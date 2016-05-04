@@ -91,7 +91,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ProjectAlpha\ProjectAlpha.csproj">
       <Project>{0bf2447e-252d-4712-b154-e350af463081}</Project>
-      <Name>ProjectAlpha %28Applications\ProjectAlpha\ProjectAlpha%29</Name>
+      <Name>ProjectAlpha</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
