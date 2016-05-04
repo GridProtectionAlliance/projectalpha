@@ -1,5 +1,5 @@
 --  ----------------------------------------------------------------------------------------------------
---  GSFSchema Data Structures for PostgreSQL - Gbtc
+--  ProjectAlpha Data Structures for PostgreSQL - Gbtc
 --
 --  Copyright © 2011, Grid Protection Alliance.  All Rights Reserved.
 --
