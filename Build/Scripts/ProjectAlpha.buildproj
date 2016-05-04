@@ -33,10 +33,13 @@
     <PropertyGroup>
       <!-- Must-override setting(s). -->
       <ProjectName>ProjectAlpha</ProjectName>
-      <!-- Use Visual Studio 11.0 tools -->
-      <TfsClient Condition="'$(TfsClient)' == ''">$(VS110COMNTOOLS)\..\IDE\tf.exe</TfsClient>
-      <VisualStudio Condition="'$(VisualStudio)' == ''">$(VS110COMNTOOLS)\..\IDE\devenv.com</VisualStudio>
-      <MSTest Condition="'$(MSTest)' == ''">$(VS110COMNTOOLS)\..\IDE\mstest.exe</MSTest>
+      
+      <GitServer>git@github.com:GridProtectionAlliance/projectalpha.git</GitServer>
+      
+      <VersionMajorChange>None</VersionMajorChange>
+      <VersionMinorChange>None</VersionMinorChange>
+      <VersionBuildChange>Increment</VersionBuildChange>
+      <VersionRevisionChange>Reset</VersionRevisionChange>
     </PropertyGroup>
   </Target>
 
@@ -66,7 +69,7 @@
     <ItemGroup>
       <!-- List of projects to build. -->
       <ProjectsToBuild Include="$(ProjectSolution)"/>
-      <ProjectsToBuild Include="$(LocalFolder)\Build\Scripts\$(ProjectName).shfbproj" Condition="'$(SkipHelpFiles)' == ''"/>
+      <!--<ProjectsToBuild Include="$(LocalFolder)\Build\Scripts\$(ProjectName).shfbproj" Condition="'$(SkipHelpFiles)' == ''"/>-->
       <!-- List of installs to build. -->
       <InstallsToBuild Include="$(LocalFolder)\Source\**\*.wixproj" />
     </ItemGroup>
@@ -93,10 +96,15 @@
   
   <Target Name="BeforeDeployBuild">
     <ItemGroup>
+      <!--List of source code files to archive.-->
+      <SourcesToArchive Include="$(LocalFolder)\Source\**\*.*" Exclude="$(LocalFolder)\Source\**\obj\**\*.*"/>
+      
       <!-- List of binaries to archive. -->
       <BinariesToArchive Include="$(BuildOutputFolder)\**\*.*"/>
+      
       <!-- List of installs to archive. -->
       <InstallsToArchive Include="$(BuildOutputFolder)\Setup\**\*.*"/>
+      
       <!-- Destinations of archive files (*.zip). -->
       <ArchiveDestinations Include="$(BuildDeployFolder)"/>
     </ItemGroup>
