@@ -34,7 +34,7 @@ namespace Setup
     public partial class Main : Form
     {
         // ProjectAlpha product code, as defined in the setup packages
-        private const string ProductCode = "{88E29EE4-2904-47A5-91C6-41087519F0BE}";
+        private const string ProductCode = "{C6055AA0-B8E9-48B3-AD52-B411507D3B6E}";
 
         private enum SetupType
         {

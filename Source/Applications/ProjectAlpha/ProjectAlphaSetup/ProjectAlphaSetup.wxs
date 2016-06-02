@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
-  <Product Id="{88E29EE4-2904-47A5-91C6-41087519F0BE}" Name="ProjectAlpha" Language="1033" Version="!(bind.FileVersion.ProjectAlpha.exe)" Manufacturer="Grid Protection Alliance" UpgradeCode="{1A68E1ED-EE7E-477F-93CC-59E5E89C7645}">
+  <Product Id="{C6055AA0-B8E9-48B3-AD52-B411507D3B6E}" Name="ProjectAlpha" Language="1033" Version="!(bind.FileVersion.ProjectAlpha.exe)" Manufacturer="Grid Protection Alliance" UpgradeCode="{BB04F000-B7E1-47C0-90CD-F37456E9517A}">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
     <MediaTemplate EmbedCab="yes" />    
