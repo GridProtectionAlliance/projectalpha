@@ -87,12 +87,10 @@ MOVE /Y "%sourceschema%\PostgreSQL\*.*" "%targetschema%\PostgreSQL\"
 MOVE /Y "%sourceschema%\SQL Server\*.*" "%targetschema%\SQL Server\"
 MOVE /Y "%sourceschema%\SQLite\*.*" "%targetschema%\SQLite\"
 %replace% /r /v "%targetschema%\*.sql" GSFSchema ProjectAlpha
-%replace% /r /v "%targetschema%\*.sql" "--*" ""
-%replace% /r /v "%targetschema%\*SampleDataSet.sql" TestingAdapters HistorianAdapters
-%replace% /r /v "%targetschema%\*SampleDataSet.sql" VirtualOutputAdapter LocalOutputAdapter
-%replace% /r /v "%targetschema%\*SampleDataSet.sql" TESTDEVICE SHELBY
-%replace% /r /v "%targetschema%\*SampleDataSet.sql" "Test Device" Shelby
-%replace% /r /v "%targetschema%\*SampleDataSet.sql" "'TEST'" "'SHEL'"
+%replace% /r /v "%targetschema%\*.sql" "--*" "-- "
+%replace% /r /v "%targetschema%\*SampleDataSet.sql" 8500 8515
+%replace% /r /v "%targetschema%\*SampleDataSet.sql" 6165 6180
+%replace% /r /v "%targetschema%\*SampleDataSet.sql" "e7a5235d-cb6f-4864-a96e-a8686f36e599" "facd14d5-56b5-4f63-a8d8-56e830bf6f7c"
 %replace% /r /v "%targetschema%\*db-update.bat" GSFSchema ProjectAlpha
 CD %targetschema%\SQLite
 CALL db-update.bat
