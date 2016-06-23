@@ -9,9 +9,11 @@ Note that Project Alpha was inspired by the code contribution of "openPDC Lite" 
 
 ![GPA Time-Series Library](https://raw.githubusercontent.com/GridProtectionAlliance/projectalpha/master/Source/Documentation/readme%20files/TSLoverview540.png)
 
-# Documentation
+# Documentation and Support
 
-Documentation for project alpha can be found [here](https://sway.com/1k26ACsHhV97nLIG).
+* Documentation for project alpha can be found [here](https://sway.com/1k26ACsHhV97nLIG).
+* Get in contact with our development team on our new [discussion boards](http://discussions.gridprotectionalliance.org/c/gpa-products/project-alpha).
+* Check out the [Project Alpha wiki](https://gridprotectionalliance.org/wiki/doku.php?id=projectalpha:overview).
 
 Some other useful links:
 * [Library documentation for the Grid Solutions Framework](https://www.gridprotectionalliance.org/NightlyBuilds/GridSolutionsFramework/Help/html/N_GSF.htm)
@@ -59,3 +61,6 @@ If you would like to contribute please:
 * Fork the repository.
 * Work your magic.
 * Create a pull request.
+ 
+# License
+Project Alpha is licensed under the [MIT License](https://opensource.org/licenses/MIT).
