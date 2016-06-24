@@ -41,7 +41,7 @@ Some other useful links:
 * Design your analytic – i.e., design your Action adapter
 * Enjoy.
 
-Read the [documentation](#documentation) above for more detailed information.
+Read the [documentation](#documentation-and-support) above for more detailed information.
 
 ## Requirements
 * 64-bit Windows 7 or newer.
