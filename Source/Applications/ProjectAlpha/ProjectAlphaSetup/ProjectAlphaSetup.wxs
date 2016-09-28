@@ -533,6 +533,9 @@
       <Component Id="Npgsql">
         <File Id="Npgsql.dll" Name="Npgsql.dll" Source="$(var.SolutionDir)\Dependencies\GSF\Npgsql.dll" />
       </Component>
+      <Component Id="Newtonsoft.Json">
+        <File Id="Newtonsoft.Json.dll" Name="Newtonsoft.Json.dll" Source="$(var.SolutionDir)Dependencies\GSF\Newtonsoft.Json.dll" />
+      </Component>
     </ComponentGroup>
     
     <!-- Microsoft Dependencies -->
