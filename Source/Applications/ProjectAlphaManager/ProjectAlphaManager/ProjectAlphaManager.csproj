@@ -273,11 +273,15 @@ IF EXIST "$(TargetDir)..\ProjectAlpha" COPY "$(TargetDir)$(TargetFileName).confi
 IF EXIST "$(TargetDir)..\ProjectAlpha" COPY "$(TargetDir)*.dll" "$(TargetDir)..\ProjectAlpha"
 IF EXIST "$(TargetDir)..\ProjectAlpha" COPY "$(TargetDir)Menu.xml" "$(TargetDir)..\ProjectAlpha"</PostBuildEvent>
   </PropertyGroup>
+  <Target Name="AfterBuild">
+    <CallTarget Targets="SignBuild"/>
+  </Target>
+  <Target Name="SignBuild" Condition="'$(SIGNTOOL)' != ''">
+    <Exec Command="$(SIGNTOOL) $(TargetPath)" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
   </Target>
   -->
 </Project>
