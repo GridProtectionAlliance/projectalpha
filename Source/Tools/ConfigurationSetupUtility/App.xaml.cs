@@ -28,6 +28,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Security.Principal;
+using System.Windows;
 using GSF.IO;
 using GSF.Security.Cryptography;
 using GSF.Windows.ErrorManagement;
@@ -37,13 +38,23 @@ namespace ConfigurationSetupUtility
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App
+    public partial class App : Application
     {
         #region [ Members ]
 
         // Constants
         public const CipherStrength CryptoStrength = CipherStrength.Aes256;
         public const string CipherLookupKey = "0679d9ae-aca5-4702-a3f5-604415096987";
+
+        public const string ApplicationExe = "ProjectAlpha.exe";
+        public const string ApplicationConfig = "ProjectAlpha.exe.config";
+        public const string Manager = "ProjectAlphaManager";
+        public const string ManagerExe = "ProjectAlphaManager.exe";
+        public const string ManagerConfig = "ProjectAlphaManager.exe.config";
+        public const string BaseSqliteConfig = "ProjectAlpha.db";
+        public readonly static string SqliteConfigv2 = "ProjectAlpha" + DatabaseVersionSuffix + ".db";
+        public const string SqliteSampleData = "ProjectAlpha-SampleDataSet.db";
+        public const string SqliteInitialData = "ProjectAlpha-InitialDataSet.db";
 
         private readonly ErrorLogger m_errorLogger;
         private readonly Func<string> m_defaultErrorText;
