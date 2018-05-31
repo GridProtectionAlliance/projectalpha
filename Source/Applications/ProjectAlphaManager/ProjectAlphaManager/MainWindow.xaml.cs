@@ -290,10 +290,10 @@ namespace ProjectAlphaManager
             try
             {
                 // Check for internet connectivity.
-                Dns.GetHostEntry("ProjectAlpha.codeplex.com");
+                Dns.GetHostEntry("github.com");
 
                 // Launch the help page available on web.
-                Process.Start("http://ProjectAlpha.codeplex.com/wikipage?title=Manager%20Configuration");
+                Process.Start("https://github.com/GridProtectionAlliance/projectalpha");
             }
             catch
             {
