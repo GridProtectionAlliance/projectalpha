@@ -5,7 +5,15 @@
 
 Project Alpha is a Visual Studio solution that provides a jump start to developing new products from the [Grid Solutions Framework](https://github.com/GridProtectionAlliance/gsf) - [Time-Series Library](https://www.gridprotectionalliance.org/technology.asp#TSL).
 
-Note that Project Alpha was inspired by the code contribution of "openPDC Lite" from [Washington State University](http://school.eecs.wsu.edu/) that was designed to allow easy development and debugging of analytic based action adapters. Project Alpha also expands on this notion by allowing developers to easily develop and debug their action adapters from within a single solution. In addition, Project Alpha adds the ability for users of the GSF Time-series Library to completely develop an independent package for an analytic that contains all the pieces needed to deploy the application including database scripts, configuration utilities, a manager application, debug host application / release service and an installation utility.
+After downloading the source code of this project you can run the "[rename project](https://github.com/GridProtectionAlliance/projectalpha/blob/master/RenameProject.bat)" script which will create your own personal service-based application that can maange and host time-series adapters. A full [WiX Toolset](https://wixtoolset.org/) based installation package is also included.
+
+See [Building New Analytics with Project Alpha](https://sway.office.com/1k26ACsHhV97nLIG?ref=email&loc=play).
+
+Some example projects that used Project Alpha as a starting point are:
+* [substationSBG](https://github.com/GridProtectionAlliance/substationSBG)
+* [PTPSync](https://github.com/GridProtectionAlliance/PTPSync)
+
+
 
 ![GPA Time-Series Library](https://raw.githubusercontent.com/GridProtectionAlliance/projectalpha/master/Source/Documentation/readme%20files/TSLoverview540.png)
 
@@ -13,7 +21,6 @@ Note that Project Alpha was inspired by the code contribution of "openPDC Lite" 
 
 * Documentation for project alpha can be found [here](https://sway.com/1k26ACsHhV97nLIG).
 * Get in contact with our development team on our new [discussion boards](http://discussions.gridprotectionalliance.org/c/gpa-products/project-alpha).
-* Check out the [Project Alpha wiki](https://gridprotectionalliance.org/wiki/doku.php?id=projectalpha:overview).
 
 Some other useful links:
 * [Library documentation for the Grid Solutions Framework](https://www.gridprotectionalliance.org/NightlyBuilds/GridSolutionsFramework/Help/html/N_GSF.htm)
@@ -64,3 +71,7 @@ If you would like to contribute please:
  
 # License
 Project Alpha is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+
+---
+
+_Note that Project Alpha was inspired by the code contribution of "openPDC Lite" from [Washington State University](http://school.eecs.wsu.edu/) that was designed to allow easy development and debugging of analytic based action adapters. Project Alpha also expands on this notion by allowing developers to easily develop and debug their action adapters from within a single solution. In addition, Project Alpha adds the ability for users of the GSF Time-series Library to completely develop an independent package for an analytic that contains all the pieces needed to deploy the application including database scripts, configuration utilities, a manager application, debug host application / release service and an installation utility._
