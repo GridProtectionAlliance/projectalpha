@@ -251,7 +251,7 @@
     <ComponentGroup Id="ProjectAlphaComponents" Directory="INSTALLFOLDER">
       <Component Id="ProjectAlpha">
         <File Id="ProjectAlpha.exe" Name="$(var.ProjectAlpha.TargetFileName)" Source="$(var.ProjectAlpha.TargetPath)" />
-        <ServiceInstall Id="ProjectAlphaService" Name="ProjectAlpha" Account="[SERVICEACCOUNT]" Password="[SERVICEPASSWORD]" Type="ownProcess" Start="auto" ErrorControl="normal" Description="Provides processing for streaming time-series data in real-time including phasor data concentration services for synchrophasor applications." />
+        <ServiceInstall Id="ProjectAlphaService" Name="ProjectAlpha" Account="[SERVICEACCOUNT]" Password="[SERVICEPASSWORD]" Type="ownProcess" Start="auto" ErrorControl="normal" Description="Provides processing by ProjectAlpha for streaming time-series data in real-time using the Grid Solutions Framework." />
         <ServiceControl Id="ProjectAlphaServiceControl" Name="ProjectAlpha" Stop="both" Remove="uninstall" />
       </Component>
       <Component Id="ProjectAlphaConfig" Permanent="yes">
