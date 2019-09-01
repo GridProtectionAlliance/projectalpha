@@ -5,7 +5,7 @@
 
 Project Alpha is a Visual Studio solution that provides a jump start to developing new products from the [Grid Solutions Framework](https://github.com/GridProtectionAlliance/gsf) - [Time-Series Library](https://www.gridprotectionalliance.org/technology.asp#TSL).
 
-After downloading the source code of this project you can run the "[rename project](https://github.com/GridProtectionAlliance/projectalpha/blob/master/RenameProject.bat)" script which will create your own personal service-based application that can manange and host time-series adapters. A full [WiX Toolset](https://wixtoolset.org/) based installation package is also included.
+After downloading the source code of this project you can run the "[rename project](https://github.com/GridProtectionAlliance/projectalpha/blob/master/RenameProject.bat)" script which will create your own personal service-based application that can manage and host time-series adapters. A full [WiX Toolset](https://wixtoolset.org/) based installation package is also included.
 
 See [Building New Analytics with Project Alpha](https://sway.office.com/1k26ACsHhV97nLIG?ref=email&loc=play).
 
