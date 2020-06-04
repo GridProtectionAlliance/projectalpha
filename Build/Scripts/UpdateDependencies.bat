@@ -89,6 +89,9 @@ COPY /Y "%sourcetools%\NoInetFixUtil\NoInetFixUtil.exe" "%targettools%\NoInetFix
 COPY /Y "%sourcetools%\DNP3ConfigGenerator\DNP3ConfigGenerator.exe" "%targettools%\DNP3ConfigGenerator.exe"
 COPY /Y "%sourcetools%\LogFileViewer\LogFileViewer.exe" "%targettools%\LogFileViewer.exe"
 
+:: This file is over 10MB making repo unusable as a template, so we remove it
+DEL /F /Q "%dependencies%\VC_redist.x64.exe"
+
 :UpdateDbScripts
 ECHO.
 ECHO Updating database schema defintions...
