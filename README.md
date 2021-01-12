@@ -1,7 +1,6 @@
-![projectalpha logo](https://raw.githubusercontent.com/GridProtectionAlliance/projectalpha/master/Source/Documentation/readme%20files/Project-Alpha-Logo_70.png)
+![projectalpha logo](https://gridprotectionalliance.org/images/products/ProductTitles75/ProjectAlpha.png)
 
 # About
-
 
 Project Alpha is a Visual Studio solution that provides a jump start to developing new products from the [Grid Solutions Framework](https://github.com/GridProtectionAlliance/gsf) - [Time-Series Library](https://www.gridprotectionalliance.org/technology.asp#TSL).
 
@@ -75,3 +74,5 @@ Project Alpha is licensed under the [MIT License](https://opensource.org/license
 ---
 
 _Note that Project Alpha was inspired by the code contribution of "openPDC Lite" from [Washington State University](http://school.eecs.wsu.edu/) that was designed to allow easy development and debugging of analytic based action adapters. Project Alpha also expands on this notion by allowing developers to easily develop and debug their action adapters from within a single solution. In addition, Project Alpha adds the ability for users of the GSF Time-series Library to completely develop an independent package for an analytic that contains all the pieces needed to deploy the application including database scripts, configuration utilities, a manager application, debug host application / release service and an installation utility._
+
+![projectalpha logo](https://raw.githubusercontent.com/GridProtectionAlliance/projectalpha/master/Source/Documentation/readme%20files/Project-Alpha-Logo_70.png)
