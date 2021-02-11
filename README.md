@@ -23,9 +23,9 @@ Some example projects that used Project Alpha as a starting point are:
 
 Some other useful links:
 * [Library documentation for the Grid Solutions Framework](https://www.gridprotectionalliance.org/NightlyBuilds/GridSolutionsFramework/Help/html/N_GSF.htm)
-* [Discussion board for the Grid Solutions Framework](http://discussions.gridprotectionalliance.org/c/gpa-products/gsf) - note: this is a new board, searching the history of existing threads on old CodePlex sites could provide insights into common questions:
-  * [openPDC](http://openpdc.codeplex.com/discussions).
-  * [Grid Solutions Framework](http://gsf.codeplex.com/discussions).
+* [Discussion board for the Grid Solutions Framework](http://discussions.gridprotectionalliance.org/c/gpa-products/gsf) ~~- note: this is a new board, searching the history of existing threads on old CodePlex sites could provide insights into common questions:~~
+  ~~* [openPDC](http://openpdc.codeplex.com/discussions).~~
+  ~~* [Grid Solutions Framework](http://gsf.codeplex.com/discussions).~~
 * [Major components of the Time-Series Library application](https://www.gridprotectionalliance.org/docs/products/gsf/tsl-components-2015.pdf).
 * [How to create a custom adapter](https://github.com/GridProtectionAlliance/openPDC/blob/master/Source/Documentation/wiki/Developers_Custom_Adapters.md).
 * [Custom adapter examples](https://github.com/GridProtectionAlliance/openPDC/blob/master/Source/Documentation/wiki/Developers_Custom_Adapters.md).
