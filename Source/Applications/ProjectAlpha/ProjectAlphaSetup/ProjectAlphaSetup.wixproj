@@ -26,6 +26,7 @@
     <OutputPath>..\..\..\..\Build\Output\Release\Setup\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <SuppressIces>ICE57;ICE03;ICE43;ICE60</SuppressIces>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CustomExitDialog.wxs" />
