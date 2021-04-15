@@ -138,7 +138,7 @@
     <CustomAction Id="AuthenticateServiceAccountAction" BinaryKey="InstallerActions" DllEntry="AuthenticateServiceAccountAction" Execute="immediate" />
     <CustomAction Id="LoadExistingCompanyInfoAction" BinaryKey="InstallerActions" DllEntry="LoadExistingCompanyInfoAction" Execute="immediate" />
     <CustomAction Id="StartCSUProcessAction" BinaryKey="InstallerActions" DllEntry="StartProcessAction" Execute="immediate" />
-    <CustomAction Id="CompanyInfoAction.SetProperty" Property="CompanyInfoAction" Value="SERVICENAME=[SERVICENAME];INSTALLDIR=[INSTALLFOLDER];COMPANYNAME=[COMPANYNAME];COMPANYACRONYM=[COMPANYACRONYM]" />
+    <CustomAction Id="CompanyInfoAction.SetProperty" Property="CompanyInfoAction" Value="SERVICENAME=[SERVICENAME];INSTALLDIR=[INSTALLFOLDER];COMPANYNAME=[COMPANYNAME];COMPANYACRONYM=[COMPANYACRONYM];SYSTEMNAME=[SYSTEMNAME]" />
     <CustomAction Id="CompanyInfoAction" BinaryKey="InstallerActions" DllEntry="CompanyInfoAction" Execute="deferred" Impersonate="no" />
     <CustomAction Id="ConfigureServiceAction.SetProperty" Property="ConfigureServiceAction" Value="SERVICENAME=[SERVICENAME]" />
     <CustomAction Id="ConfigureServiceAction" BinaryKey="InstallerActions" DllEntry="ConfigureServiceAction" Execute="deferred" Impersonate="no" />
@@ -434,7 +434,7 @@
         <File Id="HistorianView.exe" Name="HistorianView.exe" Source="$(var.ProjectDir)\HistorianView.exe">
           <netfx:NativeImage Id="ngen_HistorianView.exe" Platform="64bit" Priority="1" AppBaseDirectory="INSTALLFOLDER"/>
         </File>
-        <Shortcut Id="HistorianViewStartMenuShortcut" Name="Historian Trending Tool" Icon="HistorianView.ico.exe" Description="Tool used to analyze historic files to create charts and export archived data to CSV format." WorkingDirectory="INSTALLFOLDER" Directory="ApplicationProgramsFolder" Advertise="yes" />
+        <Shortcut Id="HistorianViewStartMenuShortcut" Name="Historian Trending Tool" Icon="HistorianView.ico.exe" Description="Tool used to analyze historic files to create charts and export data to CSV format." WorkingDirectory="INSTALLFOLDER" Directory="ApplicationProgramsFolder" Advertise="yes" />
       </Component>
       <Component Id="HistorianViewConfig">
         <File Id="HistorianView.exe.config" Name="HistorianView.exe.config" Source="$(var.ProjectDir)\HistorianView.exe.config" />
@@ -562,6 +562,11 @@
           <netfx:NativeImage Id="ngen_NAudio.dll" Platform="64bit" Priority="1" AppBaseDirectory="INSTALLFOLDER"/>
         </File>
       </Component>
+      <Component Id="ModbusAdapters">
+        <File Id="ModbusAdapters.dll" Name="ModbusAdapters.dll" Source="$(var.SolutionDir)\Dependencies\GSF\ModbusAdapters.dll">
+          <netfx:NativeImage Id="ngen_ModbusAdapters.dll" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLFOLDER"/>
+        </File>
+      </Component>
       <Component Id="MongoAdapters">
         <File Id="MongoAdapters.dll" Name="MongoAdapters.dll" Source="$(var.SolutionDir)\Dependencies\GSF\MongoAdapters.dll">
           <netfx:NativeImage Id="ngen_MonogAdapters.dll" Platform="64bit" Priority="1" AppBaseDirectory="INSTALLFOLDER"/>
@@ -618,9 +623,37 @@
           <netfx:NativeImage Id="ngen_TestingAdapters.dll" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLFOLDER"/>
         </File>
       </Component>
-      <Component Id="WavInputAdapter">
-        <File Id="WavInputAdapter.dll" Name="WavInputAdapter.dll" Source="$(var.SolutionDir)\Dependencies\GSF\WavInputAdapter.dll">
-          <netfx:NativeImage Id="ngen_WavInputAdapter.dll" Platform="64bit" Priority="1" AppBaseDirectory="INSTALLFOLDER"/>
+      <Component Id="eDNAAdapters">
+        <!-- eDNA Historian Adapters -->
+        <File Id="eDNAAdapters.dll" Name="eDNAAdapters.dll" Source="$(var.SolutionDir)\Dependencies\GSF\eDNAAdapters.dll">
+          <netfx:NativeImage Id="ngen_eDNAAdapters.dll" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLFOLDER"/>
+        </File>
+      </Component>
+      <Component Id="EzDnaApi64">
+        <File Id="EzDnaApi64.dll" Name="EzDnaApi64.dll" Source="$(var.SolutionDir)\Dependencies\GSF\EzDnaApi64.dll" />
+      </Component>
+      <Component Id="EzDNAApiNet64">
+        <File Id="EzDNAApiNet64.dll" Name="EzDNAApiNet64.dll" Source="$(var.SolutionDir)\Dependencies\GSF\EzDNAApiNet64.dll">
+          <netfx:NativeImage Id="ngen_EzDNAApiNet64.dll" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLFOLDER"/>
+        </File>
+      </Component>
+      <Component Id="EzDNAApiNetSecure64">
+        <File Id="EzDNAApiNetSecure64.dll" Name="EzDNAApiNetSecure64.dll" Source="$(var.SolutionDir)\Dependencies\GSF\EzDNAApiNetSecure64.dll">
+          <netfx:NativeImage Id="ngen_EzDNAApiNetSecure.dll" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLFOLDER"/>
+        </File>
+      </Component>
+      <Component Id="EZDnaServApi64">
+        <File Id="EZDnaServApi64.dll" Name="EZDnaServApi64.dll" Source="$(var.SolutionDir)\Dependencies\GSF\EZDnaServApi64.dll" />
+      </Component>
+      <Component Id="EzDNAServApiNet64">
+        <File Id="EzDNAServApiNet64.dll" Name="EzDNAServApiNet64.dll" Source="$(var.SolutionDir)\Dependencies\GSF\EzDNAServApiNet64.dll">
+          <netfx:NativeImage Id="ngen_ExDNAServApiNet64.dll" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLFOLDER"/>
+        </File>
+      </Component>
+      <Component Id="NModbus4">
+        <!-- Dependency for Modbus connectivity -->
+        <File Id="NModbus4.dll" Name="NModbus4.dll" Source="$(var.SolutionDir)\Dependencies\GSF\NModbus4.dll">
+          <netfx:NativeImage Id="ngen_NModbus4.dll" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLFOLDER"/>
         </File>
       </Component>
       <Component Id="AzureEventHubAdapters">
@@ -802,8 +835,14 @@
           <netfx:NativeImage Id="ngen_sttp.gsf.dll" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLFOLDER"/>
         </File>
       </Component>
+
+      <Component Id="ValidateAssemblyBindings">
+        <File Id="ValidateAssemblyBindings.exe" Name="ValidateAssemblyBindings.exe" Source="$(var.SolutionDir)\Dependencies\GSF\ValidateAssemblyBindings.exe">
+          <netfx:NativeImage Id="ngen_ValidateAssemblyBindings.exe" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLFOLDER"/>
+        </File>
+      </Component>
     </ComponentGroup>
-    
+
     <!-- Microsoft Dependencies -->
     <ComponentGroup Id="MicrosoftDependencyComponents" Directory="INSTALLFOLDER">
       <Component Id="DynamicDataDisplay">
