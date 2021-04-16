@@ -35,7 +35,7 @@ Some other useful links:
   * [Custom Adapter Development (newer)](https://www.gridprotectionalliance.org/UserForum/2014/Tutorial%20Session%203%20(Carroll)%20-%202014%2008%2012.pdf).
   * [Custom Adapter Development (older)](https://www.gridprotectionalliance.org/UserForum/2012/Building%20Custom%20Adapters.pdf).
   * [Gateway Exchange Protocol](https://www.gridprotectionalliance.org/UserForum/2014/Tutorial%20Session%202%20(Carroll)%20-%202014%2008%2012.pdf).
-* [GSF libraries on NuGet](https://www.nuget.org/packages?q=%22Grid+Solutions+Framework%22).
+* [GSF libraries on NuGet](https://www.nuget.org/packages?q=%22GSF%22).
 
 # Deployment
 1. Make sure your system meets all the [requirements](#requirements) below.
