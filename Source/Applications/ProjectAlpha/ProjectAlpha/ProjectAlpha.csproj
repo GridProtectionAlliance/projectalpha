@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ProjectAlpha</RootNamespace>
     <AssemblyName>ProjectAlpha</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ApplicationIcon>ProjectAlpha.ico</ApplicationIcon>
     <StartupObject>
@@ -39,6 +39,7 @@
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
     <MSBuildWarningsAsMessages>MSB3276</MSBuildWarningsAsMessages>
     <LangVersion>latest</LangVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -210,7 +211,8 @@
 CALL "$(ProjectDir)PostBuildSetup.bat" "$(TargetDir)" "$(SolutionDir)Dependencies\GSF\*.*"
 CALL "$(ProjectDir)PostBuildSetup.bat" "$(TargetDir)" "$(SolutionDir)Applications\ProjectAlpha\ProjectAlphaSetup\*.exe*"
 CALL "$(ProjectDir)PostBuildSetup.bat" "$(TargetDir)" "$(ProjectDir)Sample1344.PmuCapture"
-XCOPY "$(SolutionDir)Data\SerializedSchema.bin" "$(TargetDir)" /Y</PostBuildEvent>
+XCOPY "$(SolutionDir)Data\SerializedSchema.bin" "$(TargetDir)" /Y
+"$(SolutionDir)Dependencies\GSF\ValidateAssemblyBindings.exe" "$(TargetPath).config"</PostBuildEvent>
   </PropertyGroup>
   <Target Name="AfterBuild">
     <CallTarget Targets="SignBuild" />
