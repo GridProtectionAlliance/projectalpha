@@ -39,8 +39,8 @@
         <ComponentGroupRef Id="AdapterComponents" />
         <ComponentGroupRef Id="ConfigurationSetupUtilityComponents" />
         <ComponentGroupRef Id="GSFDependencyComponents" />
-        <ComponentGroupRef Id="MicrosoftDependencyComponents" />
         <ComponentGroupRef Id="AzureADDependencyComponents" />
+        <ComponentGroupRef Id="MicrosoftDependencyComponents" />
         <ComponentRef Id="makecert"/>
       </Feature>
 
@@ -242,6 +242,7 @@
       <!-- Libraries -->
       <ComponentGroupRef Id="AdapterComponents" />
       <ComponentGroupRef Id="GSFDependencyComponents" />
+      <ComponentGroupRef Id="AzureADDependencyComponents" />
       <ComponentGroupRef Id="MicrosoftDependencyComponents" />
 
       <!-- Database Scripts -->
@@ -431,7 +432,6 @@
           <netfx:NativeImage Id="ngen_DNP3ConfigGenerator.exe" Platform="64bit" Priority="1" AppBaseDirectory="INSTALLFOLDER"/>
         </File>
       </Component>
-
     </ComponentGroup>
     
     <ComponentGroup Id="ConfigCrypterComponents" Directory="INSTALLFOLDER">
@@ -518,7 +518,7 @@
       </Component>
     </ComponentGroup>
     
-        <ComponentGroup Id="eDNAAdapterComponents" Directory="INSTALLFOLDER">
+    <ComponentGroup Id="eDNAAdapterComponents" Directory="INSTALLFOLDER">
       <Component Id="eDNAAdapters">
         <!-- eDNA Historian Adapters -->
         <File Id="eDNAAdapters.dll" Name="eDNAAdapters.dll" Source="$(var.SolutionDir)\Dependencies\GSF\eDNAAdapters.dll">
