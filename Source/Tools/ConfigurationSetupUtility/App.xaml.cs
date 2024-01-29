@@ -25,10 +25,13 @@
 
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Security.Principal;
 using System.Windows;
+using System.Windows.Markup;
+using GSF.Diagnostics;
 using GSF.IO;
 using GSF.Security.Cryptography;
 using GSF.Windows.ErrorManagement;
@@ -66,6 +69,7 @@ namespace ConfigurationSetupUtility
         public App()
         {
             AppDomain.CurrentDomain.SetPrincipalPolicy(PrincipalPolicy.WindowsPrincipal);
+            Current.Startup += Application_Startup;
 
             m_errorLogger = new ErrorLogger();
             m_defaultErrorText = m_errorLogger.ErrorTextMethod;
@@ -123,6 +127,19 @@ namespace ConfigurationSetupUtility
         #endregion
 
         #region [ Methods ]
+
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            try
+            {
+                XmlLanguage xmlLanguage = XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.Name);
+                FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(xmlLanguage));
+            }
+            catch (Exception ex)
+            {
+                Logger.SwallowException(ex);
+            }
+        }
 
         private string ErrorText()
         {
