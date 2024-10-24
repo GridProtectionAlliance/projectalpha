@@ -151,6 +151,7 @@
     <Property Id="INSTALLOPTIONALFEATURE" Secure="yes" />
 
     <Property Id="SERVICENAME" Value="$(var.ProjectAlpha.TargetName)" />
+    <Property Id="SERVICEACCOUNT" Secure="yes" />
     <Property Id="SERVICEPASSWORD" Hidden="yes" />
     <Property Id="HTTPSERVICEPORTS" Value="6057,6058,6157,6158,6357,6457,5021" />
     <Property Id="COMPANYNAME" Value="Grid Protection Alliance" />
